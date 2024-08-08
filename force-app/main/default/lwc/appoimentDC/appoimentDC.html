@@ -1,0 +1,42 @@
+<template>
+    <template if:true={showContent}>
+        <b>Service Appointments</b>
+        <template if:true={hasData}>
+            <div class="custom-table-container">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>DataSourceObject</th>
+                            <th>DataSource</th>
+                            <th>Appointment</th>
+                            <th>CreatedDate</th>
+                            <th>EndDate</th> 
+                            <th>ID</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={pagedData} for:item="item">
+                            <tr key={item.Id__c}>
+                                <td class="truncate">{item.DataSourceObject__c}</td>
+                                <td class="truncate">{item.DataSource__c}</td>
+                                <td class="truncate">{item.appointmentType__c}</td>
+                                <td class="truncate">{item.createdDate__c}</td>
+                                <td class="truncate">{item.end__c}</td>
+                                <td class="truncate">{item.Id__c}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination">
+                <span class="page-info">{currentPage} / {totalPages}</span>
+                <button onclick={prevPage} disabled={isFirstPage}>&lt;</button>
+                <button onclick={nextPage} disabled={isLastPage}>&gt;</button>
+            </div>
+        </template>
+    </template>
+    <template if:true={isError}>
+        <p>Error fetching data. Please try again later.</p>
+    </template>
+</template>
